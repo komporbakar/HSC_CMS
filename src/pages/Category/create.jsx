@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import TemplateCategory from "./template";
-import Breadcrumb from "../../components/Breadcrumb";
+import Breadcrumb from "../../components/molecules/Breadcrumb";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import AdminRoute from "../../middlewares/AdminRoute";
 import RouteAdmin from "../Route";
 import { postData } from "../../utils/fetch";
 
@@ -85,8 +83,8 @@ export default function CategoryCreate() {
         theme: "light",
       });
       navigate("/category");
-    } else if (res?.response?.data?.error) {
-      toast.error(res?.response?.data?.message, {
+    } else if (res?.response?.data?.sucess === false) {
+      toast.error("Failed Create Category", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

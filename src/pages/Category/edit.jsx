@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import TemplateCategory from "./template";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Breadcrumb from "../../components/Breadcrumb";
+import Breadcrumb from "../../components/molecules/Breadcrumb";
 import RouteAdmin from "../Route";
 import { getData, putData } from "../../utils/fetch";
 import { config } from "../../config";
@@ -96,8 +95,8 @@ export default function CategoryEdit() {
         theme: "light",
       });
       navigate("/category");
-    } else if (res?.response?.data?.error) {
-      toast.error(res?.response?.data?.message, {
+    } else if (res?.response?.data?.success === false) {
+      toast.error("Failed Update Category", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

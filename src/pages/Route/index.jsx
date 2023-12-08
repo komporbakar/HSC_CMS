@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import Sidebar from "../../components/Sidebar";
-import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/organisms/Sidebar";
+import Navbar from "../../components/organisms/Navbar";
 
 export default function RouteAdmin({ children }) {
   const [showNav, setShowNav] = useState(false);
-  console.log(showNav);
   return (
-    <div className="flex">
+    <div className="flex ">
       <Sidebar showNav={showNav} />
       <div className="w-full ">
         <Navbar onClick={() => setShowNav(!showNav)} />

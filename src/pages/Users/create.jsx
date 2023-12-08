@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import TemplateCategory from "./template";
-import Breadcrumb from "../../components/Breadcrumb";
+import Breadcrumb from "../../components/molecules/Breadcrumb";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AdminRoute from "../../middlewares/AdminRoute";

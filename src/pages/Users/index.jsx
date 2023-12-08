@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Breadcrumb from "../../components/Breadcrumb";
+import Breadcrumb from "../../components/molecules/Breadcrumb";
 import { Link } from "react-router-dom";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/molecules/Pagination";
 import RouteAdmin from "../Route";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";

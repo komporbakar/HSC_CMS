@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import Sidebar from "../components/Sidebar";
-import Breadcrumb from "../components/Breadcrumb";
+import Sidebar from "../components/organisms/Sidebar";
+import Breadcrumb from "../components/molecules/Breadcrumb";
 import { Link } from "react-router-dom";
 import RouteAdmin from "./Route";
 import Chart from "chart.js/auto";

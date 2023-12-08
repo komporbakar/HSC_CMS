@@ -11,6 +11,7 @@ export const fetchItems = (page, limit, keyword) => async (dispatch) => {
             limit: limit,
             keyword: keyword
         })
+        console.log(response)
 
         dispatch(fetchItemsSuccess(response.data))
         

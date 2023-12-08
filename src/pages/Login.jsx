@@ -18,30 +18,21 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const res = await fetchLogin("/auth/admin/signin", form);
-      console.log(res);
-  
+
       if (res && res.data && res.data.success === true) {
-        toast.success(res.data.message, {
-          // ... (your success toast configuration)
-        });
-  
+        toast.success(res.data.message, {});
+
         Cookies.set("token", res.data.token, { expires: 7 });
         navigate("/");
       } else {
-        // Assuming res.response is an Axios error object
-        toast.error(res?.response?.data?.message || "An error occurred", {
-          // ... (your error toast configuration)
-        });
+        toast.error(res?.response?.data?.message || "An error occurred", {});
       }
     } catch (error) {
-      // Handle unexpected errors or network issues
       console.error("Error during login:", error);
-      toast.error("An unexpected error occurred", {
-        // ... (your error toast configuration)
-      });
+      toast.error("An unexpected error occurred", {});
     }
   };
-  
+
   return (
     <div className="bg-primary h-screen flex justify-center items-center">
       <div className="bg-white rounded-xl shadow-slate-400 shadow-md p-5 ">
@@ -110,16 +101,6 @@ export default function Login() {
               />
             </div>
           </div>
-
-          {/* <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-            Not registered?{" "}
-            <a
-              href="#"
-              className="text-blue-700 hover:underline dark:text-blue-500"
-            >
-              Create account
-            </a>
-          </div> */}
         </form>
         <button
           onClick={handleLogin}
