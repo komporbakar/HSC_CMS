@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import TemplateCategory from "./template";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Breadcrumb from "../../components/molecules/Breadcrumb";
 import { getData, putData } from "../../utils/fetch";
 import { config } from "../../config";
 import { toast } from "react-toastify";
+import RouteAdmin from "../Route";
 
 export default function ItemsEdit() {
   const { id } = useParams();
@@ -154,7 +154,7 @@ export default function ItemsEdit() {
     fetchData();
   }, []);
   return (
-    <TemplateCategory>
+    <RouteAdmin>
       <div className=" my-3 flex justify-between items-center">
         <h1 className=" font-bold text-xl">Item Edit</h1>
         <Breadcrumb
@@ -334,6 +334,6 @@ export default function ItemsEdit() {
           </button>
         </Link>
       </div>
-    </TemplateCategory>
+    </RouteAdmin>
   );
 }
