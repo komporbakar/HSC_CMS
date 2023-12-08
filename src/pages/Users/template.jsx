@@ -1,7 +1,7 @@
 import React from "react";
-import Sidebar from "../../components/Sidebar";
-import Navbar from "../../components/Navbar";
-import Breadcrumb from "../../components/Breadcrumb";
+import Sidebar from "../../components/organisms/Sidebar";
+import Navbar from "../../components/organisms/Navbar";
+import Breadcrumb from "../../components/molecules/Breadcrumb";
 import { Link } from "react-router-dom";
 
 export default function TemplateCategory({ children }) {

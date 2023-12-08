@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import Breadcrumb from "../../components/Breadcrumb";
+import Breadcrumb from "../../components/molecules/Breadcrumb";
 import RouteAdmin from "../Route";
 
 export default function TransactionsEdit() {

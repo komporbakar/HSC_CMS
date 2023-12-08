@@ -3,12 +3,19 @@ import { Link } from "react-router-dom";
 import { config } from "../../config";
 import ButtonEdit from "../../components/atoms/ButtonEdit";
 import ButtonDelete from "../../components/atoms/ButtonDelete";
+import { Eye } from "@phosphor-icons/react";
 
-export default function TableItems({ currentItems, handleDelete, page, limit }) {
+export default function TableItems({
+  currentItems,
+  handleDelete,
+  page,
+  limit,
+}) {
+  console.log(currentItems);
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead className="text-xs font-bold text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <td className="p-4">No</td>
             <td className="px-6 py-3">Title</td>
@@ -30,21 +37,33 @@ export default function TableItems({ currentItems, handleDelete, page, limit }) 
                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {item.name || "N/A"}
                 </td>
-                <td className="px-6 py-4">{item.items?.id_category || "N/A"}</td>
+                <td className="px-6 py-4">{item.category?.name || "N/A"}</td>
                 <td className="px-6 py-4">
                   {item.image && (
                     <img
-                      src={`${config.api_image}/${item.image}`}
+                      src={`${config.api_host}/${item.image}`}
                       alt={item.name || "Item Image"}
-                      className="w-24 max-h-28"
+                      className="w-80 max-h-28"
                     />
                   )}
                 </td>
-                <td className="px-6 py-4">{item.description || "N/A"}</td>
-                <td className="px-6 py-4">{item.updated_at || "N/A"}</td>
+                <td className="px-6 my-auto line-clamp-3">
+                  {item.description || "N/A"}
+                </td>
+                <td className="px-6 py-4">
+                  {new Date(item.updated_at).toLocaleString() || "N/A"}
+                </td>
                 <td className="px-6 py-4 flex flex-row space-x-2">
                   <Link to={`/items/edit/${item.id}`}>
                     <ButtonEdit />
+                  </Link>
+                  <Link to={`/items/${item.id}`}>
+                    <button
+                      type="button"
+                      className="bg-blue-500 rounded-full p-2.5"
+                    >
+                      <Eye size={16} color="#fafafa" />
+                    </button>
                   </Link>
                   <ButtonDelete handleDelete={() => handleDelete(item.id)} />
                 </td>

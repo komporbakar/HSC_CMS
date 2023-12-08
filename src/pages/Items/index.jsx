@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../../components/Sidebar";
-import Navbar from "../../components/Navbar";
-import Breadcrumb from "../../components/Breadcrumb";
+import Breadcrumb from "../../components/molecules/Breadcrumb";
 import { Link } from "react-router-dom";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/molecules/Pagination";
 import RouteAdmin from "../Route";
 import TableItems from "./table";
 import { deleteData, getData } from "../../utils/fetch";
@@ -13,25 +11,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchItems } from "../../redux/items/action";
 
 export default function Items() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const items = useSelector((state) => state.items.data);
   const currentPage = useSelector((state) => state.items.currentPage);
   const currentItems = useSelector((state) => state.items.currentItems);
-  
-  const [keyword, setKeyword] = useState("")
 
-  const limit = 5 || 1
-  const page = Math.ceil(items.totalItems / limit)
+  const [keyword, setKeyword] = useState("");
 
-  const [toPage, setToPage] = useState(currentPage)
+  const limit = 10 || 1;
+  const page = Math.ceil(currentItems / limit);
+
+  const [toPage, setToPage] = useState(currentPage);
 
   const handlePageClick = ({ selected }) => {
-    setToPage(selected + 1)
-  }
+    setToPage(selected + 1);
+  };
 
   useEffect(() => {
-    dispatch(fetchItems(toPage, limit, keyword))
-  }, [dispatch, toPage, keyword])  
+    dispatch(fetchItems(toPage, limit, keyword));
+  }, [dispatch, toPage, keyword]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -95,6 +93,7 @@ export default function Items() {
               id="table-search"
               className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg max-w-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
               placeholder="Search for items"
+              onChange={(e) => setKeyword(e.target.value)}
             />
           </div>
         </div>
@@ -108,10 +107,10 @@ export default function Items() {
         </Link>
       </div>
       <TableItems
-      currentItems={items}
-      page={currentPage}
-      limit={limit}
-      handleDelete={handleDelete}
+        currentItems={items}
+        page={currentPage}
+        limit={limit}
+        handleDelete={handleDelete}
       />
       <div className="mt-3 text-center">
         <Pagination pages={page} handlePageClick={handlePageClick} />

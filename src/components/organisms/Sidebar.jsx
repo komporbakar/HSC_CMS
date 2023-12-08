@@ -4,7 +4,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function Sidebar({ showNav }) {
-  console.log(showNav);
   const [open, setOpen] = useState(true);
   const Menus = [
     { title: "Dashboard", src: "dashboard", link: "/" },
@@ -14,7 +13,7 @@ export default function Sidebar({ showNav }) {
     { title: "Users", src: "account", link: "/users", gap: true },
     { title: "Logout", src: "logout", link: "/logout", gap: true },
   ];
-
+  console.log(showNav);
   const location = useLocation();
 
   const handleLogout = async () => {
@@ -36,8 +35,8 @@ export default function Sidebar({ showNav }) {
     <div
       className={`${
         open ? "min-w-[200px] " : "md:w-20 "
-      } duration-300  p-3 min-h-screen pt-8   bg-primary relative md:block ${
-        showNav ? "" : "hidden"
+      } duration-300  p-3 min-h-screen pt-8 relative bg-primary   md:block ${
+        showNav ? "absolute z-10" : "hidden "
       }`}
     >
       <img

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TemplateCategory from "./template";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Breadcrumb from "../../components/Breadcrumb";
+import Breadcrumb from "../../components/molecules/Breadcrumb";
 import RouteAdmin from "../Route";
 import { getData, putData } from "../../utils/fetch";
 import { config } from "../../config";

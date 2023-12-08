@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TemplateCategory from "./template";
-import Breadcrumb from "../../components/Breadcrumb";
+import Breadcrumb from "../../components/molecules/Breadcrumb";
 import { Link, useNavigate } from "react-router-dom";
 import RouteAdmin from "../Route";
 import { getData, postData } from "../../utils/fetch";
@@ -86,10 +85,11 @@ export default function ItemsCreate() {
       positionlng: form.positionlng,
       image: form.image,
     };
-    const res = await postData("/items", payload);
-
-    if (res?.data?.error === false) {
-      toast.success("Created Items Success", {
+    console.log(payload);
+    const res = await postData("/items", payload, FormData);
+    console.log(res);
+    if (res?.data?.success === true) {
+      toast.success(res.data.message, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -100,8 +100,8 @@ export default function ItemsCreate() {
         theme: "light",
       });
       navigate("/items");
-    } else if (res?.response?.data?.error) {
-      toast.error(res?.response?.data?.message, {
+    } else if (res?.response?.data?.success === false) {
+      toast.error("Invalid Create Items", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

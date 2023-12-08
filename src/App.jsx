@@ -10,13 +10,15 @@ import Login from "./pages/Login";
 import AdminRoute from "./middlewares/AdminRoute";
 import Items from "./pages/Items";
 import ItemsCreate from "./pages/Items/create";
-import TransactionsCreate from "./pages/Transactions/create";
+// import TransactionsCreate from "./pages/Transactions/create";
 import Transactions from "./pages/Transactions";
 import TransactionsEdit from "./pages/Transactions/edit";
 import ItemsEdit from "./pages/Items/edit";
 import Users from "./pages/Users";
 import UsersCreate from "./pages/Users/create";
 import UsersEdit from "./pages/Users/edit";
+import TransactionsDetail from "./pages/Transactions/detail";
+import ItemsDetail from "./pages/Items/detail";
 
 function App() {
   return (
@@ -49,12 +51,13 @@ function App() {
           {/* Items */}
           <Route path="/items" element={<Items />} />
           <Route path="/items/create" element={<ItemsCreate />} />
+          <Route path="/items/:id" element={<ItemsDetail />} />
           <Route path="/items/edit/:id" element={<ItemsEdit />} />
 
-          {/* Items */}
+          {/* Transactions */}
           <Route path="/transactions" element={<Transactions />} />
-          <Route path="/transactions/create" element={<TransactionsCreate />} />
-          <Route path="/transactions/edit/:id" element={<TransactionsEdit />} />
+          <Route path="/transactions/:id" element={<TransactionsDetail />} />
+          {/* <Route path="/transactions/edit/:id" element={<TransactionsEdit />} /> */}
 
           {/* Users */}
           <Route path="/users" element={<Users />} />

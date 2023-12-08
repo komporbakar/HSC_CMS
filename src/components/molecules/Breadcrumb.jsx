@@ -3,8 +3,8 @@ import React from "react";
 export default function Breadcrumb({ firsttag, secondtag, thirdtag, urltag }) {
   return (
     <div>
-      <nav className="flex" aria-label="Breadcrumb">
-        <ol className="inline-flex items-center space-x-1 md:space-x-3">
+      <nav className="flex flex-wrap" aria-label="Breadcrumb">
+        <ol className="inline-flex flex-wrap items-center space-x-1 md:space-x-3">
           <li className="inline-flex items-center">
             <a
               href="/"
@@ -46,7 +46,7 @@ export default function Breadcrumb({ firsttag, secondtag, thirdtag, urltag }) {
                   </p>
                 ) : (
                   <a
-                    href="#"
+                    href={urltag}
                     className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white "
                   >
                     {secondtag}

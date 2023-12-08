@@ -45,7 +45,9 @@ export async function postData(url, payload, formData) {
 
 export async function putData(url, payload) {
   try {
-    const token = Cookies.get("token");
+    const token = Cookies.get("token")
+      ? Cookies.get("token")
+      : {};
 
     const res = await axios.put(`${config.api_host_url}${url}`, payload, {
       headers: {

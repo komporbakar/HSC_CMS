@@ -1,16 +1,32 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../../components/Sidebar";
-import Navbar from "../../components/Navbar";
-import Breadcrumb from "../../components/Breadcrumb";
-import { Link } from "react-router-dom";
-import Pagination from "../../components/Pagination";
+import Breadcrumb from "../../components/molecules/Breadcrumb";
+import Pagination from "../../components/molecules/Pagination";
 import RouteAdmin from "../Route";
 import TableItems from "./table";
-import { getData } from "../../utils/fetch";
 import { useDispatch, useSelector } from "react-redux";
-// import { fetchTransactions } from "../../redux/slices/transactionsSlice";
+import { fetchOrders } from "../../redux/transaction/actions";
 
 export default function Transactions() {
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.transaction.data);
+  const currentPage = useSelector((state) => state.transaction.currentPage);
+  const currentItems = useSelector((state) => state.transaction.currentItems);
+  const [keyword, setKeyword] = useState("");
+
+  const limit = 5 || 1;
+  const page = Math.ceil(currentItems / limit);
+
+  const [toPage, setToPage] = useState(currentPage);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = ({ selected }) => {
+    setToPage(selected + 1);
+  };
+
+  useEffect(() => {
+    dispatch(fetchOrders(toPage, limit, keyword));
+  }, [dispatch, toPage, keyword]);
+
   return (
     <RouteAdmin>
       <div className=" my-3 flex justify-between items-center">
@@ -45,13 +61,14 @@ export default function Transactions() {
               id="table-search"
               className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg max-w-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
               placeholder="Search for items"
+              onChange={(e) => setKeyword(e.target.value)}
             />
           </div>
         </div>
       </div>
-      {/* <TableItems currentItems={currentItems} itemPrev={itemPrev} /> */}
+      <TableItems currentItems={items} page={currentPage} limit={limit} />
       <div className="mt-3 text-center">
-        {/* <Pagination pages={pageCount} handlePageClick={handlePageClick} /> */}
+        <Pagination pages={page} handlePageClick={handlePageClick} />
       </div>
     </RouteAdmin>
   );

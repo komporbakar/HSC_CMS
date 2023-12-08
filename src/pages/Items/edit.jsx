@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import TemplateCategory from "./template";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Breadcrumb from "../../components/Breadcrumb";
-import { getData, postData, putData } from "../../utils/fetch";
+import Breadcrumb from "../../components/molecules/Breadcrumb";
+import { getData, putData } from "../../utils/fetch";
 import { config } from "../../config";
 import { toast } from "react-toastify";
 
@@ -16,22 +16,29 @@ export default function ItemsEdit() {
     description: "",
     price: "",
     image: "",
+    positionlat: "",
+    positionlng: "",
   });
   const fetchData = async () => {
     const res = await getData(`/items/${id}`);
+
     const category = await getData(`/categories`);
     setCategory(category.data.data);
-    if (res.data.error === false) {
+    if (res.data.success === true) {
+      const data = res.data.data;
       setForm({
         ...form,
-        name: res.data.data.name,
-        categoryId: res.data.data.category.id,
-        price: res.data.data.price,
-        image: res.data.data.image,
-        description: res.data.data.description,
+        name: data.name,
+        categoryId: data.categoryId,
+        description: data.description,
+        price: data.price,
+        image: data.image,
+        positionlat: data.positionlat,
+        positionlng: data.positionlng,
       });
     }
   };
+  console.log(form);
   const handleChange = async (e) => {
     if (e.target.name === "image") {
       if (
@@ -89,12 +96,14 @@ export default function ItemsEdit() {
       name: form.name,
       categoryId: form.categoryId,
       description: form.description,
+      positionlat: form.positionlat,
+      positionlng: form.positionlng,
       price: form.price,
       image: form.image,
     };
 
-    const res = await putData(`/items/${id}`, payload);
-    if (res?.data?.error === false) {
+    const res = await putData(`/items/${id}`, payload, FormData);
+    if (res?.data?.success === true) {
       toast.success("Created Items Success", {
         position: "top-right",
         autoClose: 3000,
@@ -106,7 +115,7 @@ export default function ItemsEdit() {
         theme: "light",
       });
       navigate("/items");
-    } else if (res?.response?.data?.error) {
+    } else if (res?.response?.data?.success === false) {
       toast.error(res?.response?.data?.message, {
         position: "top-right",
         autoClose: 5000,
@@ -202,6 +211,44 @@ export default function ItemsEdit() {
         <div className="grid gap-6 mb-6 lg:grid-cols-2">
           <div>
             <label
+              htmlFor="positionlat"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Position Latitude
+            </label>
+            <input
+              type="text"
+              id="positionlat"
+              name="positionlat"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder=""
+              value={form.positionlat}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="grid gap-6 mb-6 lg:grid-cols-2">
+          <div>
+            <label
+              htmlFor="positionlng"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Position Longitude
+            </label>
+            <input
+              type="text"
+              id="positionlng"
+              name="positionlng"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder=""
+              value={form.positionlng}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="grid gap-6 mb-6 lg:grid-cols-2">
+          <div>
+            <label
               htmlFor="message"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
@@ -264,7 +311,7 @@ export default function ItemsEdit() {
             </p>
             {form.image ? (
               <img
-                src={`${config.api_image}/${form.image}`}
+                src={`${config.api_host}/${form.image}`}
                 className="w-44 mt-5 rounded-md"
               />
             ) : (

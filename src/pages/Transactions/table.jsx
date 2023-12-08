@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Eye } from "@phosphor-icons/react";
 
-export default function TableTransactions({ currentItems, itemPrev }) {
+export default function TableTransactions({ currentItems, page, limit }) {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -11,19 +12,19 @@ export default function TableTransactions({ currentItems, itemPrev }) {
               No
             </th>
             <th scope="col" className="px-6 py-3">
-              Title
+              Trx Id
             </th>
             <th scope="col" className="px-6 py-3">
-              Trx Id
+              Total Items
             </th>
             <th scope="col" className="px-6 py-3">
               Price
             </th>
             <th scope="col" className="px-6 py-3">
-              Trx Item
+              Status Order
             </th>
             <th scope="col" className="px-6 py-3">
-              Total Price
+              Payment Date
             </th>
             <th scope="col" className="px-6 py-3">
               Action
@@ -37,30 +38,22 @@ export default function TableTransactions({ currentItems, itemPrev }) {
                 key={index}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
-                <td className="w-4 p-4 ">{index + 1 + itemPrev}</td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  {item.name}
-                </th>
+                <td className="w-4 p-4 ">{index + 1 + (page - 1) * limit}</td>
                 <td className="px-6 py-4">{item.trxId}</td>
-                <td className="px-6 py-4">{item.price}</td>
-                <td className="px-6 py-4">{item.trxItem}</td>
-                <td className="px-6 py-4">{item.totalPrice}</td>
+                <td className="px-6 py-4">{item.cartData.length}</td>
+                <td className="px-6 py-4">{item.totalCartPrice}</td>
+                <td className="px-6 py-4">{item.statusOrder}</td>
+                <td className="px-6 py-4">
+                  {new Date(item.detetimePayment).toLocaleString() ??
+                    "Belum Bayar"}
+                </td>
                 <td className="px-6 py-4 flex flex-row space-x-2">
-                  <Link to={"/transactions/update"}>
+                  <Link to={`/transactions/${item.id}`}>
                     <button
                       type="button"
-                      className={`text-white ${
-                        item.status === "Success"
-                          ? "bg-teal-400 hover:bg-teal-800"
-                          : item.status === "Failed"
-                          ? "bg-red-400 hover:bg-red-800"
-                          : "bg-yellow-400 hover:bg-yellow-800"
-                      } focus:outline-none focus:ring-4 focus:ring-teal-300 font-medium rounded-full text-sm px-3 py-1.5 text-center mb-2  mt-3 md:mt-0`}
+                      className="bg-blue-500 rounded-full p-2"
                     >
-                      {item.status}
+                      <Eye size={16} color="#fafafa" />
                     </button>
                   </Link>
                 </td>
